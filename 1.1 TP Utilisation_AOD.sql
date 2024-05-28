@@ -1,4 +1,5 @@
-create  table scratch.riders.historical_Utilsation_AOD as
+
+create or replace table scratch.riders.historical_Utilsation_AOD as
 with base as
 (
 select 
@@ -34,7 +35,7 @@ base
 )
 
 select 
-a.*,b. UR_zone_corrected, b.AOD_AVG, b.RET_AVG
+a.*,b. UR_zone_corrected, b.AOD_AVG, b.RET_AVG, b.TP_zone_corrected
 from 
     scratch.riders.TP_master_table as a
 left join 
