@@ -30,5 +30,3 @@ select * from base
 left join 
 base_2 
 on 1=1
-
-;
