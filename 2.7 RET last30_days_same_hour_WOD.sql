@@ -1,4 +1,4 @@
-create  table scratch.riders.last_30_dys_same_hr_wod as
+create or replace  table scratch.riders.last_30_dys_same_hr_WOD as
 with cuisine_flag as
 (
 select    
@@ -183,62 +183,62 @@ from base
      ,a.order_month
      ,a.delivered_hour
      ,a.WOD
-     ,max(b.top_1_cuisine) as top_1_cuisine_last_30_dys_same_hr
-     ,max(b.top_2_cuisine) as top_2_cuisine_last_30_dys_same_hr
-     ,max(b.top_3_cuisine) as top_3_cuisine_last_30_dys_same_hr
+     ,max(b.top_1_cuisine) as top_1_cuisine_last_30_dys_same_hr_WOd
+     ,max(b.top_2_cuisine) as top_2_cuisine_last_30_dys_same_hr_WOd
+     ,max(b.top_3_cuisine) as top_3_cuisine_last_30_dys_same_hr_WOd
      
-     ,count(distinct ID)as order_cnt_last_30_dys_same_hr
-     ,avg (AOD)as avg_AOD_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.1) WITHIN GROUP (ORDER BY AOD)as p10_AOD_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.2) WITHIN GROUP (ORDER BY AOD)as p20_AOD_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.5) WITHIN GROUP (ORDER BY AOD)as p50_AOD_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.7) WITHIN GROUP (ORDER BY AOD)as p70_AOD_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.9) WITHIN GROUP (ORDER BY AOD)as p90_AOD_last_30_dys_same_hr
+     ,count(distinct ID)as order_cnt_last_30_dys_same_hr_WOd
+     ,avg (AOD)as avg_AOD_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.1) WITHIN GROUP (ORDER BY AOD)as p10_AOD_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.2) WITHIN GROUP (ORDER BY AOD)as p20_AOD_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.5) WITHIN GROUP (ORDER BY AOD)as p50_AOD_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.7) WITHIN GROUP (ORDER BY AOD)as p70_AOD_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.9) WITHIN GROUP (ORDER BY AOD)as p90_AOD_last_30_dys_same_hr_WOd
   
-     ,avg(EOD)as avg_EOD_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.1) WITHIN GROUP (ORDER BY EOD)as p10_EOD_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.2) WITHIN GROUP (ORDER BY EOD)as p20_EOD_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.5) WITHIN GROUP (ORDER BY EOD)as p50_EOD_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.7) WITHIN GROUP (ORDER BY EOD)as p70_EOD_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.9) WITHIN GROUP (ORDER BY EOD)as p90_EOD_last_30_dys_same_hr
+     ,avg(EOD)as avg_EOD_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.1) WITHIN GROUP (ORDER BY EOD)as p10_EOD_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.2) WITHIN GROUP (ORDER BY EOD)as p20_EOD_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.5) WITHIN GROUP (ORDER BY EOD)as p50_EOD_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.7) WITHIN GROUP (ORDER BY EOD)as p70_EOD_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.9) WITHIN GROUP (ORDER BY EOD)as p90_EOD_last_30_dys_same_hr_WOd
 
-     ,avg(ERAT)as avg_ERAT_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.1) WITHIN GROUP (ORDER BY ERAT)as p10_ERAT_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.2) WITHIN GROUP (ORDER BY ERAT)as p20_ERAT_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.5) WITHIN GROUP (ORDER BY ERAT)as p50_ERAT_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.7) WITHIN GROUP (ORDER BY ERAT)as p70_ERAT_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.9) WITHIN GROUP (ORDER BY ERAT)as p90_ERAT_last_30_dys_same_hr
+     ,avg(ERAT)as avg_ERAT_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.1) WITHIN GROUP (ORDER BY ERAT)as p10_ERAT_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.2) WITHIN GROUP (ORDER BY ERAT)as p20_ERAT_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.5) WITHIN GROUP (ORDER BY ERAT)as p50_ERAT_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.7) WITHIN GROUP (ORDER BY ERAT)as p70_ERAT_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.9) WITHIN GROUP (ORDER BY ERAT)as p90_ERAT_last_30_dys_same_hr_WOd
      
-     ,avg(RIDER_TO_RESTAURANT_MINS)as avg_RIDER_TO_RESTAURANT_MINS_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.1) WITHIN GROUP (ORDER BY RIDER_TO_RESTAURANT_MINS)as p10_RIDER_TO_RESTAURANT_MINS_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.2) WITHIN GROUP (ORDER BY RIDER_TO_RESTAURANT_MINS)as p20_RIDER_TO_RESTAURANT_MINS_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.5) WITHIN GROUP (ORDER BY RIDER_TO_RESTAURANT_MINS)as p50_RIDER_TO_RESTAURANT_MINS_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.7) WITHIN GROUP (ORDER BY RIDER_TO_RESTAURANT_MINS)as p70_RIDER_TO_RESTAURANT_MINS_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.9) WITHIN GROUP (ORDER BY RIDER_TO_RESTAURANT_MINS)as p90_RIDER_TO_RESTAURANT_MINS_last_30_dys_same_hr
+     ,avg(RIDER_TO_RESTAURANT_MINS)as avg_RIDER_TO_RESTAURANT_MINS_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.1) WITHIN GROUP (ORDER BY RIDER_TO_RESTAURANT_MINS)as p10_RIDER_TO_RESTAURANT_MINS_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.2) WITHIN GROUP (ORDER BY RIDER_TO_RESTAURANT_MINS)as p20_RIDER_TO_RESTAURANT_MINS_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.5) WITHIN GROUP (ORDER BY RIDER_TO_RESTAURANT_MINS)as p50_RIDER_TO_RESTAURANT_MINS_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.7) WITHIN GROUP (ORDER BY RIDER_TO_RESTAURANT_MINS)as p70_RIDER_TO_RESTAURANT_MINS_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.9) WITHIN GROUP (ORDER BY RIDER_TO_RESTAURANT_MINS)as p90_RIDER_TO_RESTAURANT_MINS_last_30_dys_same_hr_WOd
 
-     ,avg(FPT)as avg_FPT_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.1) WITHIN GROUP (ORDER BY FPT)as p10_FPT_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.2) WITHIN GROUP (ORDER BY FPT)as p20_FPT_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.5) WITHIN GROUP (ORDER BY FPT)as p50_FPT_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.7) WITHIN GROUP (ORDER BY FPT)as p70_FPT_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.9) WITHIN GROUP (ORDER BY FPT)as p90_FPT_last_30_dys_same_hr
+     ,avg(FPT)as avg_FPT_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.1) WITHIN GROUP (ORDER BY FPT)as p10_FPT_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.2) WITHIN GROUP (ORDER BY FPT)as p20_FPT_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.5) WITHIN GROUP (ORDER BY FPT)as p50_FPT_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.7) WITHIN GROUP (ORDER BY FPT)as p70_FPT_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.9) WITHIN GROUP (ORDER BY FPT)as p90_FPT_last_30_dys_same_hr_WOd
 
-     ,avg(RESTO_CUSTOMER_MINS) as avg_RESTO_CUSTOMER_MINS_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.1) WITHIN GROUP (ORDER BY RESTO_CUSTOMER_MINS)as p10_RESTO_CUSTOMER_MINS_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.2) WITHIN GROUP (ORDER BY RESTO_CUSTOMER_MINS)as p20_RESTO_CUSTOMER_MINS_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.5) WITHIN GROUP (ORDER BY RESTO_CUSTOMER_MINS)as p50_RESTO_CUSTOMER_MINS_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.7) WITHIN GROUP (ORDER BY RESTO_CUSTOMER_MINS)as p70_RESTO_CUSTOMER_MINS_last_30_dys_same_hr
-     ,PERCENTILE_CONT( 0.9) WITHIN GROUP (ORDER BY RESTO_CUSTOMER_MINS)as p90_RESTO_CUSTOMER_MINS_last_30_dys_same_hr
+     ,avg(RESTO_CUSTOMER_MINS) as avg_RESTO_CUSTOMER_MINS_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.1) WITHIN GROUP (ORDER BY RESTO_CUSTOMER_MINS)as p10_RESTO_CUSTOMER_MINS_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.2) WITHIN GROUP (ORDER BY RESTO_CUSTOMER_MINS)as p20_RESTO_CUSTOMER_MINS_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.5) WITHIN GROUP (ORDER BY RESTO_CUSTOMER_MINS)as p50_RESTO_CUSTOMER_MINS_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.7) WITHIN GROUP (ORDER BY RESTO_CUSTOMER_MINS)as p70_RESTO_CUSTOMER_MINS_last_30_dys_same_hr_WOd
+     ,PERCENTILE_CONT( 0.9) WITHIN GROUP (ORDER BY RESTO_CUSTOMER_MINS)as p90_RESTO_CUSTOMER_MINS_last_30_dys_same_hr_WOd
  
-     ,avg(WAIT_AT_CUSTOMER)as avg_WAIT_AT_CUSTOMER_last_30_dys_same_hr
-     ,avg(LATENESS)as avg_lateness_last_30_dys_same_hr
-     ,sum(LATE_BY_5_MINS)/ count(distinct ID)as late_by_5_mins_perc_last_30_dys_same_hr
-     ,sum(LATE_BY_10_MINS)/ count(distinct ID)as late_by_10_mins_perc_last_30_dys_same_hr
-     ,sum(LATE_BY_15_MINS)/ count(distinct ID)as late_by_15_mins_perc_last_30_dys_same_hr
-     ,avg(TEMPERATURE)as avg_TEMPERATURE_last_30_dys_same_hr
-     ,avg(WIND_SPEED)as avg_WIND_SPEED_last_30_dys_same_hr
-     ,sum (CROSS_ZONE_PICKUP_FLAG)/ count(distinct ID)as perc_cross_zone_pickup_last_30_dys_same_hr
-     ,sum (CROSS_ZONE_DLVRY_FLAG)/ count(distinct ID)as perc_cross_zone_dlvry_last_30_dys_same_hr
+     ,avg(WAIT_AT_CUSTOMER)as avg_WAIT_AT_CUSTOMER_last_30_dys_same_hr_WOd
+     ,avg(LATENESS)as avg_lateness_last_30_dys_same_hr_WOd
+     ,sum(LATE_BY_5_MINS)/ count(distinct ID)as late_by_5_mins_perc_last_30_dys_same_hr_WOd
+     ,sum(LATE_BY_10_MINS)/ count(distinct ID)as late_by_10_mins_perc_last_30_dys_same_hr_WOd
+     ,sum(LATE_BY_15_MINS)/ count(distinct ID)as late_by_15_mins_perc_last_30_dys_same_hr_WOd
+     ,avg(TEMPERATURE)as avg_TEMPERATURE_last_30_dys_same_hr_WOd
+     ,avg(WIND_SPEED)as avg_WIND_SPEED_last_30_dys_same_hr_WOd
+     ,sum (CROSS_ZONE_PICKUP_FLAG)/ count(distinct ID)as perc_cross_zone_pickup_last_30_dys_same_hr_WOd
+     ,sum (CROSS_ZONE_DLVRY_FLAG)/ count(distinct ID)as perc_cross_zone_dlvry_last_30_dys_same_hr_WOd
      
      
      from rolling_30_days  as a
@@ -252,4 +252,3 @@ from base
          a.order_month between  dateadd('month', -6, date_trunc('month',  current_date())) and   LAST_DAY(dateadd('month', -1, date_trunc('month',  current_date())), MONTH) -- remove the data prior to this
       group by 1,2,3,4,5
       order by 1 desc;
-
