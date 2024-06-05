@@ -67,8 +67,8 @@ where
     and order_type != 'REDELIVERY'   
     and fulfillment_type='Deliveroo' 
     AND order_fulfillment = 'Deliveroo Rider' 
-    and order_date between  dateadd('month', -7, date_trunc('month',  current_date())) and   LAST_DAY(dateadd('month', -1, date_trunc('month',  current_date())), MONTH)
-   and  date (LOCAL_TIME_PREP_FOR)between   dateadd('month', -7, date_trunc('month',  current_date())) and   LAST_DAY(dateadd('month', -1, date_trunc('month',  current_date())), MONTH)
+    and order_date between  '2023-09-01' and   LAST_DAY(dateadd('month', -1, date_trunc('month',  current_date())), MONTH)
+   and  date (LOCAL_TIME_PREP_FOR)between   '2023-09-01' and   LAST_DAY(dateadd('month', -1, date_trunc('month',  current_date())), MONTH)
 
     )
 
@@ -230,3 +230,4 @@ where
 
       group by 1,2,3
       order by 1 desc;
+
