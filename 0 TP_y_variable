@@ -1,0 +1,30 @@
+create  or replace table scratch.riders.TP_y_variable as
+with base as
+(
+select 
+DATE_TRUNC(month, Date (START_OF_PERIOD_LOCAL)) AS order_month
+,DAYNAME ( START_OF_PERIOD_LOCAL) as week_of_Day
+,CAST(EXTRACT(HOUR FROM START_OF_PERIOD_LOCAL) AS INT) as hour_of_day
+,upper(zone_code) as zone_code
+,lower(city_name) as city_name
+,COALESCE(SUM(RET_MINS_SUM ), 0) / NULLIF(COALESCE(SUM(ret_mins_cnt ), 0), 0) AS RET_AVG
+from
+PRODUCTION.AGGREGATE.AGG_ZONE_DELIVERY_METRICS_HOURLY
+where
+date (start_of_period_local) between dateadd('month', -6, date_trunc('month',  current_date())) and  LAST_DAY(dateadd('month', -1, date_trunc('month',  current_date())), MONTH)
+and CNT_ERAT >0 -- use this filter to get only active zone
+group by 1,2,3,4,5
+)
+
+select a.*,b.RET_AVG 
+from 
+scratch.riders.TP_master_table as a
+left join 
+base as b
+on lower(a.zone_code)=lower(b.zone_code)
+and lower(a.city_name)=lower(b.city_name)
+and a.order_month=b.order_month
+and a.hour_of_day=b.hour_of_day
+and a.week_of_Day=b.week_of_Day
+
+
